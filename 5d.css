@@ -1,0 +1,19 @@
+
+    p{
+        font-family: Arial;
+     margin-top: 0px;
+        margin-bottom: 0px;
+        text-align: center;
+    }
+    .title{
+        font-size: 27px;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+    .subtitle{
+        margin-bottom: 12px;
+        
+    }
+    .link{
+        color: rgb(37, 101, 252);
+    }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .box{
+                display: flex;
+                flex-direction: row;
+                height: 50px;
+            }
+            .pink{
+                width: 100px;
+                background-color: lightpink;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .blue{
+            background-color: lightblue;
+            width: 200px;
+            }
+            .blue2{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            p{
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="box">
+            <div class="pink">
+                <p style="background-color: black;
+                color: white;">item1</p>
+            </div>
+            <div style="background-color: lightblue;
+            width: 200px;">
+            </div>
+        </div>
+        ///////////////////////
+        <div class="box">
+            <div class="pink">
+            
+            </div>
+            <div class="blue">
+                <div>
+                    <p>row1</p>
+                </div>
+                <div class="blue2">
+                <p style="background-color: black;
+                color: white;">row2</p>
+                <p style="background-color: black;
+                color: white;">row2</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .item{
+                background-color: black;
+                color: white;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+            }
+            .sidebar{
+                background-color: green;
+                color: white;
+                position: fixed;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 100px;
+            }
+            .background-color{
+                
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+            .background-color2{
+                background-color: rgba(0, 0, 0,0.5);
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .box{width: 300px;
+                background-color: white;
+                border-radius: 10px;
+                padding: 20px;
+            }
+            .title{
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                font-size: 25px;
+                margin-bottom: 10px;
+            }
+            .text{
+                font-family: Arial, Helvetica, sans-serif;
+                margin-bottom: 10px;
+
+            }
+
+        </style>
+
+    </head>
+    <body style="height: 3000px;">
+        <div class="background-color">
+
+        </div>
+        <div class="sidebar">
+            right sidebar
+        </div>
+        <div class="item">
+            bottom-right
+        </div>
+        <div class="background-color2">
+            <div class="box">
+                <div class="title">
+                    Modal Title
+                </div>
+                <div class="text">
+                    This is a modal
+                </div>
+                <button>
+                    Close
+                </button>
+
+            </div>
+        </div>
+        
+
+    </body>
+</html>
