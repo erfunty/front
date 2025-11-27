@@ -14,10 +14,8 @@
             }
             .getnumber{
                 background-color: rgb(18, 18, 18);
-                padding-left: 5px;
-                padding-bottom: 7px;
-                padding-top: 7px;
-                padding-right: 5px;
+                padding: 11px 7px 11px 7px;
+
                 border-style: solid ;
                 border-radius: 3px;
                 border-width: 1px;
@@ -25,21 +23,63 @@
                 border-color:rgb(85, 85,85) ;
                 font-family: Arial, Helvetica, sans-serif;
                 font-size: 12px;
-                
-                
+                margin-bottom: 7px;
+            }
+            .getnumber::placeholder{
+                color: rgb(163, 163, 163);
+            }
+            .main{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                column-gap: 100px;
 
+
+
+            }
+            .right-section{
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+
+            }
+            .left-section{
+                height: 750px;
+                display: flex;
+                align-items: center;
+            }
+            .imginsta{
+                margin-top: 130px;
+                width: 550px;
+            }
+            .login-button{
+                font-family: Arial, Helvetica, sans-serif;
+                background-color: rgb(65, 74, 209);
+                border: none;
+                color: rgb(236, 236, 236);
+                padding: 7px 115px 7px 115px;
+                border-radius: 5px;
+                margin-top: 10px;
+
+            }
+            .logo{
+                margin-bottom: 40px;
             }
         </style>
 
     </head>
     <body>
         <div class="backgroundcolor">
-            <div>
-                <div>
-
+            <div class="main">
+                <div class="left-section">
+                    <img class="imginsta" src="../data/image/instaimg.png">
                 </div>
-                <div>
+                <div class="right-section">
+                    <img src="../data/image/logo.png" class="logo">
                     <input type="text" class="getnumber" placeholder="Phone number, username, or email">
+                    <input type="text" class="getnumber" placeholder="Password">
+                    <button class="login-button">Log in</button>
                 </div>
             </div>
             <div>
