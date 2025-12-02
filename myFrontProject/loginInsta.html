@@ -1,94 +1,169 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <style>
-            .backgroundcolor{
-                background-color: rgb(0, 0, 0);
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                right: 0;
-                left: 0;
+
+<head>
+    <style>
+        .backgroundcolor {
+            background-color: rgb(0, 0, 0);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
 
 
-            }
-            .getnumber{
-                background-color: rgb(18, 18, 18);
-                padding: 11px 7px 11px 7px;
+        }
 
-                border-style: solid ;
-                border-radius: 3px;
-                border-width: 1px;
-                width: 250px;
-                border-color:rgb(85, 85,85) ;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 12px;
-                margin-bottom: 7px;
-            }
-            .getnumber::placeholder{
-                color: rgb(163, 163, 163);
-            }
-            .main{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                column-gap: 100px;
+        .getnumber {
+            background-color: rgb(18, 18, 18);
+            padding: 11px 7px 11px 7px;
+
+            border-style: solid;
+            border-radius: 3px;
+            border-width: 1px;
+            width: 250px;
+            border-color: rgb(85, 85, 85);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .getnumber::placeholder {
+            color: rgb(163, 163, 163);
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 100px;
 
 
 
-            }
-            .right-section{
-                display: flex;
-                flex-direction: column;
-                justify-content: start;
-                align-items: center;
+        }
 
-            }
-            .left-section{
-                height: 750px;
-                display: flex;
-                align-items: center;
-            }
-            .imginsta{
-                margin-top: 130px;
-                width: 550px;
-            }
-            .login-button{
-                font-family: Arial, Helvetica, sans-serif;
-                background-color: rgb(65, 74, 209);
-                border: none;
-                color: rgb(236, 236, 236);
-                padding: 7px 115px 7px 115px;
-                border-radius: 5px;
-                margin-top: 10px;
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
 
-            }
-            .logo{
-                margin-bottom: 40px;
-            }
-        </style>
+        }
 
-    </head>
-    <body>
-        <div class="backgroundcolor">
-            <div class="main">
-                <div class="left-section">
-                    <img class="imginsta" src="../data/image/instaimg.png">
-                </div>
-                <div class="right-section">
-                    <img src="../data/image/logo.png" class="logo">
-                    <input type="text" class="getnumber" placeholder="Phone number, username, or email">
-                    <input type="text" class="getnumber" placeholder="Password">
-                    <button class="login-button">Log in</button>
+        .left-section {
+            height: 750px;
+            display: flex;
+            align-items: center;
+        }
+
+        .imginsta {
+
+            width: 550px;
+        }
+
+        .login-button {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(65, 74, 209);
+            border: none;
+            color: rgb(236, 236, 236);
+            padding: 7px 115px 7px 115px;
+            border-radius: 5px;
+            margin-top: 10px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .logo {
+            margin-bottom: 40px;
+        }
+        .down-section{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 11px;
+            
+        }
+        .down-buttons{
+            color:#a8a8a8;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            white-space: nowrap;
+
+
+
+        }
+        .down-buttons:hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .forget-pass{
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            margin-top: 25px;
+        }
+        .forget-pass:hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .ask-acc{
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            margin-top: 60px;
+            font-weight: 400;
+        }
+        .sign{
+            color: rgb(65, 74, 209);
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="backgroundcolor">
+        <div class="main">
+            <div class="left-section">
+                <img class="imginsta" src="../data/image/instaimg.png">
+            </div>
+            <div class="right-section">
+                <img src="../data/image/logo.png" class="logo">
+                <input type="text" class="getnumber" placeholder="Phone number, username, or email">
+                <input type="text" class="getnumber" placeholder="Password">
+                <button class="login-button">Log in</button>
+                <div class="forget-pass">Forgot password?</div>
+                <div class="ask-acc">
+                    Don't have an account?<span class="sign">Sign up</span> 
                 </div>
             </div>
-            <div>
-
-            </div>
-
-
         </div>
-        
-    </body>
+        <div class="down-section">
+            <div class="down-buttons">Meta</div> 
+            <div class="down-buttons">About</div>
+            <div class="down-buttons">Blog</div>
+            <div class="down-buttons">Jobs</div>
+            <div class="down-buttons">Help</div>
+            <div class="down-buttons">API</div>
+            <div class="down-buttons">Privacy</div>
+            <div class="down-buttons">Cookie Settings</div>
+            <div class="down-buttons">Terms</div>
+            <div class="down-buttons">Locations</div>
+            <div class="down-buttons">Instagram Lite</div>
+            <div class="down-buttons">Meta AI</div>
+            <div class="down-buttons">Meta AI Articles</div>
+            <div class="down-buttons">Threads</div>
+            <div class="down-buttons">Contact Uploading & Non-Users</div>
+            <div class="down-buttons">Meta Verified</div>
+            <div class="down-buttons">Cancel contracts here
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
 
 </html>
