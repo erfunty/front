@@ -4,51 +4,47 @@ let secretNumber=Math.trunc(Math.random()*20)+1;
 let score=Number(document.querySelector('.score').textContent);
 let highScore=Number(document.querySelector('.highscore').textContent);
 
-
+function textContent(className,value){
+    document.querySelector(`.${className}`).textContent=value;
+}
 
 document.querySelector('.check').addEventListener('click',
     function (){
         const guess=Number(document.querySelector('.guess').value);
         
         if(!guess){
-            document.querySelector('.message').textContent='no number entered.❗'
+            textContent('message','no number entered.❗')
+            
         }else if(guess===secretNumber){
-            document.querySelector('.message').textContent='correct number🥳';
-            document.querySelector('.number').textContent=secretNumber;
+            textContent('message','correct number🥳')
+            textContent('number',secretNumber)
              document.querySelector('body').style.backgroundColor='green';
              document.querySelector('.number').style.width='30rem';
              if(highScore<score){highScore=score;
-             document.querySelector('.highscore').textContent=highScore;}
+            textContent('highscore',highScore)}
              
         }else if(guess !==secretNumber){
-            document.querySelector('.message').textContent='too high'
             if(score>1){
-                document.querySelector('.message').textContent=(guess<secretNumber)?'too low':'too high';
+                textContent('message',(guess<secretNumber)?'too low':'too high')
                 score--;
-            document.querySelector('.score').textContent=score;
+                textContent('score',score)
             }else{
-                document.querySelector('.message').textContent='u r looser😂';
-                document.querySelector('.score').textContent=0;
+                textContent('message','u r looser😂')
+                textContent('score',0)
             }
-
         }
     }
     
 );
 document.querySelector('.again').addEventListener('click',
     function(){
-        highScore=score;
-        document.querySelector('.highscore').textContent=highScore;
         score=20;
-        document.querySelector('.score').textContent=score;
+        textContent('score',score)
         document.querySelector('body').style.backgroundColor='#222';
         document.querySelector('.number').style.width='15rem';
-        document.querySelector('.message').textContent='Start guessing...';
+        textContent('message','Start guessing...')
         secretNumber=Math.trunc(Math.random()*20)+1;
-        document.querySelector('.number').textContent='?';
+        textContent('number','?')
         document.querySelector('.guess').value=null;
-
-
-
     }
 )
