@@ -89,4 +89,19 @@ const createUsernames=function(accounts){
 }
 createUsernames(accounts)
 console.log(accounts);
- 
+const calcDisplayBalance=function(acc){
+  acc.balance=acc.movements.reduce((acc,mov)=>mov+acc,0)
+  labelBalance.textContent=`${acc.balance}€`
+}
+calcDisplayBalance(account1)
+const calcDisplaySummary=function(movements){
+  const incomes=movements.filter(mov=>mov>0).reduce((acc,mov)=>mov+acc)
+  labelSumIn.textContent=`${incomes}€`
+
+  const out=movements.filter(mov=>mov<0).reduce((acc,mov)=>mov+acc)
+  labelSumOut.textContent=`${Math.abs(out)}€`
+
+  const interest=movements.filter(mov=>mov>0).map(deposit=>deposit*12/1000).reduce((acc,int)=>acc+int)
+  labelSumInterest.textContent=`${interest}€`
+}
+calcDisplaySummary(account1.movements)
