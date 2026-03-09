@@ -65,12 +65,28 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+const displayMovements=function(movements){
+  containerMovements.innerHTML=''
+movements.forEach(function(mov,i){
+  const type = mov > 0 ? 'deposit' : 'withdrawal';
+  const html=`<div class="movements__row">
+          <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
+          <div class="movements__value">${mov}€</div>
+        </div>`
+  containerMovements.insertAdjacentHTML('afterbegin',html)
+})
+}
+displayMovements(account1.movements)
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-/////////////////////////////////////////////////
+const createUsernames=function(accounts){
+  accounts.forEach(function(acc){//side effect that no need to returning and create new value just do somthing
+    acc.userName=acc.owner
+    .toLowerCase()
+  .split(' ')
+  .map(name=>name[0])//we need map becuase we don't want change the real arr
+  .join('')
+  })
+}
+createUsernames(accounts)
+console.log(accounts);
+ 
