@@ -64,6 +64,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+let curentUser;
 
 const displayMovements=function(movements){
   containerMovements.innerHTML=''
@@ -76,7 +77,7 @@ movements.forEach(function(mov,i){
   containerMovements.insertAdjacentHTML('afterbegin',html)
 })
 }
-displayMovements(account1.movements)
+
 
 const createUsernames=function(accounts){
   accounts.forEach(function(acc){//side effect that no need to returning and create new value just do somthing
@@ -88,20 +89,64 @@ const createUsernames=function(accounts){
   })
 }
 createUsernames(accounts)
-console.log(accounts);
+
 const calcDisplayBalance=function(acc){
   acc.balance=acc.movements.reduce((acc,mov)=>mov+acc,0)
   labelBalance.textContent=`${acc.balance}€`
 }
-calcDisplayBalance(account1)
-const calcDisplaySummary=function(movements){
-  const incomes=movements.filter(mov=>mov>0).reduce((acc,mov)=>mov+acc)
+
+const calcDisplaySummary=function(acc){
+  const incomes=acc.movements.filter(mov=>mov>0).reduce((acc,mov)=>mov+acc)
   labelSumIn.textContent=`${incomes}€`
 
-  const out=movements.filter(mov=>mov<0).reduce((acc,mov)=>mov+acc)
+  const out=acc.movements.filter(mov=>mov<0).reduce((acc,mov)=>mov+acc)
   labelSumOut.textContent=`${Math.abs(out)}€`
 
-  const interest=movements.filter(mov=>mov>0).map(deposit=>deposit*12/1000).reduce((acc,int)=>acc+int)
+  const interest=acc.movements.filter(mov=>mov>0).map(deposit=>deposit*acc.interestRate/100).filter((int, i, arr) => int >= 1).reduce((acc,int)=>acc+int)
   labelSumInterest.textContent=`${interest}€`
 }
-calcDisplaySummary(account1.movements)
+const updateUI=function(){
+  containerApp.style.opacity=1;
+    displayMovements(curentUser.movements)
+    calcDisplayBalance(curentUser)
+    calcDisplaySummary(curentUser)
+}
+
+
+
+btnLogin.addEventListener('click',function(e){
+  e.preventDefault();
+  curentUser=accounts.find(acc=> acc.userName===inputLoginUsername.value)
+  if(curentUser?.pin===Number(inputLoginPin.value)){
+    labelWelcome.textContent=`Welcome back , ${curentUser.owner.split(' ')[0]} `
+    updateUI()
+    inputLoginUsername.value=inputLoginPin.value=''
+  }
+
+
+})
+
+btnTransfer.addEventListener('click',function(e){
+  e.preventDefault();
+  const amount=Number(inputTransferAmount.value)
+  const receiverAcc=accounts.find(acc=>acc.userName===inputTransferTo.value)
+  if(amount>0&&amount<=curentUser.balance&&curentUser.userName!==receiverAcc.userName&&receiverAcc){
+  receiverAcc.movements.push(amount)
+  curentUser.movements.push(amount*(-1))
+  updateUI()
+  
+}
+inputTransferAmount.value=inputTransferTo.value='';
+})
+
+btnClose.addEventListener('click',function(e){
+  e.preventDefault()
+
+  if(inputCloseUsername.value===curentUser.userName&&Number(inputClosePin.value)===curentUser.pin){
+    const index= accounts.findIndex(acc=>acc.userName===curentUser.userName)
+    accounts.splice(index,1)
+    containerApp.style.opacity=0;
+    inputCloseUsername.value=inputClosePin.value=''
+
+  }
+})
