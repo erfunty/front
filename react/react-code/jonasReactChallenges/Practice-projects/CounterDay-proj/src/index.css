@@ -34,13 +34,12 @@ button {
   font-size: x-large;
   margin: 10px;
 }
-.step,
-.count {
+.step,.count {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.count input {
+.count input{
   border-radius: 25px;
   width: 240px;
   height: 30px;
@@ -48,6 +47,7 @@ button {
   padding: 5px;
   background-color: #f7f7f7;
   font-size: large;
+
 }
 
 .counter {
