@@ -127,7 +127,6 @@ document.querySelectorAll('.section').forEach(s=>
   s.classList.add("section--hidden")
 })
 
-
 const imgTargets=document.querySelectorAll('img[data-src]')
 
 const imgObserver=new IntersectionObserver(function(entries,observer){
