@@ -21,23 +21,32 @@ export default function StarRating({
   color = "#fcc419",
   size = "48px",
   className,
+  onSetRating
   
 }) {
   const [rating, setRating] = useState(0);
   const [tempRating, setTempRating] = useState(0);
+
   const textStyle = {
     lineHeight: "1",
     margin: "0px",
     color,
     fontSize: `${Number.parseInt(size) / 1.5}px`,
   };
+
+  function handleRating(rating){
+    setRating(rating)
+    onSetRating(rating)
+
+
+  }
   return (
     <div style={containerStyle} className={className}>
       <div style={starContainerStyle}>
         {Array.from({ length: maxRating }, (_, i) => (
           <span
             role="button"
-            onClick={() => setRating(i + 1)}
+            onClick={() => handleRating(i + 1)}
             onMouseEnter={() => setTempRating(i + 1)}
             onMouseLeave={() => setTempRating(0)}
             key={i}
