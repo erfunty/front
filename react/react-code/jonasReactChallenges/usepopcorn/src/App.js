@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
+import { useKey } from "./useKey";
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -51,7 +52,9 @@ const KEY = "3bfbb70b";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(()=>{
+    return JSON.parse(localStorage.getItem('wached'))
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
@@ -106,6 +109,16 @@ export default function App() {
   function handleDeleteWached(id) {
     setWatched((movies) => movies.filter((m) => m.imdbID !== id));
   }
+  function handleAddWached(movie){
+    setWatched((Wl) => [...Wl, movie]);
+
+  }
+  function handleCloseMovie(){
+    setSelectedID(null)
+  }
+  useEffect(function(){
+    localStorage.setItem('wached',JSON.stringify(watched))
+  },[watched])
  
 
   return (
@@ -126,8 +139,8 @@ export default function App() {
           {selectedID ? (
             <MovieDetails
               selectedID={selectedID}
-              onSelectMovie={setSelectedID}
-              onAddWached={setWatched}
+              onCloseMovie={handleCloseMovie}
+              onAddWached={handleAddWached}
               watched={watched}
             />
           ) : (
@@ -167,6 +180,24 @@ function Logo() {
   );
 }
 function Search({ query, setQuery }) {
+  const inputEl=useRef(null)
+  useKey('Enter',function(){
+    if(document.activeElement===inputEl.current)return
+      inputEl.current.focus()
+      setQuery('')
+  })
+  // useEffect(function(){
+  //   function callBack(e){
+  //     if(e.code==='Enter')
+  //     if(document.activeElement===inputEl.current)return
+  //     inputEl.current.focus()
+  //     setQuery('')
+
+  //   }
+  //   document.addEventListener('keydown',callBack)
+  //   return()=>document.addEventListener('keydown',callBack)
+
+  // },[])
   return (
     <input
       className="search"
@@ -174,6 +205,7 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
     />
   );
 }
@@ -303,7 +335,7 @@ function WachedMovie({ movie, onDeleteWached }) {
     </li>
   );
 }
-function MovieDetails({ selectedID, onSelectMovie, onAddWached, watched }) {
+function MovieDetails({ selectedID, onCloseMovie, onAddWached, watched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState(null);
@@ -336,8 +368,9 @@ function MovieDetails({ selectedID, onSelectMovie, onAddWached, watched }) {
       runtime: Number.parseInt(runtime),
       userRating,
     };
-    onAddWached((Wl) => [...Wl, newWachedMovie]);
-    onSelectMovie(null);
+    onAddWached(newWachedMovie)
+    
+    onCloseMovie();
   }
   useEffect(
     function () {
@@ -364,18 +397,19 @@ function MovieDetails({ selectedID, onSelectMovie, onAddWached, watched }) {
     },
     [title],
   );
-   useEffect(function () {
-    function callBack (e) {
-      if (e.code === "Escape") {
-        onSelectMovie(null);
-      }
-    }
+  useKey('escape',onCloseMovie)
+  //  useEffect(function () {
+  //   function callBack (e) {
+  //     if (e.code === "Escape") {
+  //       onSelectMovie(null);
+  //     }
+  //   }
   
-    document.addEventListener("keydown",callBack );
-    return function(){
-      document.removeEventListener("keydown",callBack )
-    }
-  }, [onSelectMovie]);
+  //   document.addEventListener("keydown",callBack );
+  //   return function(){
+  //     document.removeEventListener("keydown",callBack )
+  //   }
+  // }, [onSelectMovie]);
 
   return (
     <div className="details">
@@ -384,7 +418,7 @@ function MovieDetails({ selectedID, onSelectMovie, onAddWached, watched }) {
       ) : (
         <>
           <header>
-            <button className="btn-back" onClick={() => onSelectMovie(null)}>
+            <button className="btn-back" onClick={() => onCloseMovie()}>
               &larr;
             </button>
             <img src={poster} alt={`Poster of ${title} movie`} />
