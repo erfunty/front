@@ -52,8 +52,8 @@ const KEY = "3bfbb70b";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState(()=>{
-    return JSON.parse(localStorage.getItem('wached'))
+  const [watched, setWatched] = useState(() => {
+    return JSON.parse(localStorage.getItem("wached"));
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -96,9 +96,7 @@ export default function App() {
         return;
       }
       fetchMovies();
-      setSelectedID(null)
-    
-
+      setSelectedID(null);
 
       return function () {
         controller.abort();
@@ -109,17 +107,18 @@ export default function App() {
   function handleDeleteWached(id) {
     setWatched((movies) => movies.filter((m) => m.imdbID !== id));
   }
-  function handleAddWached(movie){
+  function handleAddWached(movie) {
     setWatched((Wl) => [...Wl, movie]);
-
   }
-  function handleCloseMovie(){
-    setSelectedID(null)
+  function handleCloseMovie() {
+    setSelectedID(null);
   }
-  useEffect(function(){
-    localStorage.setItem('wached',JSON.stringify(watched))
-  },[watched])
- 
+  useEffect(
+    function () {
+      localStorage.setItem("wached", JSON.stringify(watched));
+    },
+    [watched],
+  );
 
   return (
     <>
@@ -165,7 +164,7 @@ function ErrorMessage({ message }) {
 }
 function NavBar({ children }) {
   return (
-    <nav className="nav-bar">
+    <nav className="grid grid-cols-[1fr_1fr] items-center h-[7.2rem] min-w-[350px]  bg-[var(--color-primary)] rounded-[0.9rem] px-[1.2rem] sm:px-[3.2rem] sm:grid-cols-[1fr_1fr_1fr]">
       <Logo />
       {children}
     </nav>
@@ -173,19 +172,19 @@ function NavBar({ children }) {
 }
 function Logo() {
   return (
-    <div className="logo">
+    <div className="logo [&_span]:hidden sm:[&_span]:block">
       <span role="img">🍿</span>
       <h1>usePopcorn</h1>
     </div>
   );
 }
 function Search({ query, setQuery }) {
-  const inputEl=useRef(null)
-  useKey('Enter',function(){
-    if(document.activeElement===inputEl.current)return
-      inputEl.current.focus()
-      setQuery('')
-  })
+  const inputEl = useRef(null);
+  useKey("Enter", function () {
+    if (document.activeElement === inputEl.current) return;
+    inputEl.current.focus();
+    setQuery("");
+  });
   // useEffect(function(){
   //   function callBack(e){
   //     if(e.code==='Enter')
@@ -200,7 +199,8 @@ function Search({ query, setQuery }) {
   // },[])
   return (
     <input
-      className="search"
+    className='search'
+      className="flex justify-center transition-all duration-300 text-[var(--color-text)] bg-[var(--color-primary-light)] border-none rounded-[0.7rem] py-[1.1rem] px-[1.6rem] text-[1.8rem]   "
       type="text"
       placeholder="Search movies..."
       value={query}
@@ -211,7 +211,7 @@ function Search({ query, setQuery }) {
 }
 function NumResult({ movies }) {
   return (
-    <p className="num-results">
+    <p className="num-results hidden sm:block">
       Found <strong>{movies.length}</strong> results
     </p>
   );
@@ -311,7 +311,7 @@ function WachedMovie({ movie, onDeleteWached }) {
   return (
     <li>
       <img src={movie.poster} alt={`${movie.title} poster`} />
-      <h3>{movie.Title}</h3>
+      <h3>{movie.title}</h3>
       <div>
         <p>
           <span>⭐️</span>
@@ -368,8 +368,8 @@ function MovieDetails({ selectedID, onCloseMovie, onAddWached, watched }) {
       runtime: Number.parseInt(runtime),
       userRating,
     };
-    onAddWached(newWachedMovie)
-    
+    onAddWached(newWachedMovie);
+
     onCloseMovie();
   }
   useEffect(
@@ -397,14 +397,14 @@ function MovieDetails({ selectedID, onCloseMovie, onAddWached, watched }) {
     },
     [title],
   );
-  useKey('escape',onCloseMovie)
+  useKey("escape", onCloseMovie);
   //  useEffect(function () {
   //   function callBack (e) {
   //     if (e.code === "Escape") {
   //       onSelectMovie(null);
   //     }
   //   }
-  
+
   //   document.addEventListener("keydown",callBack );
   //   return function(){
   //     document.removeEventListener("keydown",callBack )
@@ -423,7 +423,7 @@ function MovieDetails({ selectedID, onCloseMovie, onAddWached, watched }) {
             </button>
             <img src={poster} alt={`Poster of ${title} movie`} />
             <div className="details-overview">
-              <h2>{title}</h2>
+              <h2 className="text-yellow-500">{title}</h2>
               <p>
                 {released} &bull; {runtime}
               </p>
