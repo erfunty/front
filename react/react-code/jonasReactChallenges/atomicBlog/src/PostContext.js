@@ -1,4 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { faker } from "@faker-js/faker";
 
 function createRandomPost() {
@@ -9,13 +15,13 @@ function createRandomPost() {
 }
 
 const PostContext = createContext();
+const archiveContext = createContext();
 
-function PostProvider({children}) {
+function PostProvider({ children }) {
   const [posts, setPosts] = useState(() =>
     Array.from({ length: 30 }, () => createRandomPost()),
   );
   const [searchQuery, setSearchQuery] = useState("");
-
 
   const searchedPosts =
     searchQuery.length > 0
@@ -26,28 +32,44 @@ function PostProvider({children}) {
         )
       : posts;
 
-  function handleAddPost(post) {
+  const handleAddPost = useCallback(function handleAddPost(post) {
     setPosts((posts) => [post, ...posts]);
-  }
+  }, []);
 
   function handleClearPosts() {
     setPosts([]);
   }
+  const value = useMemo(() => {
+    return {
+      posts: searchedPosts,
+      onAddPost: handleAddPost,
+      onClearPosts: handleClearPosts,
+      searchQuery,
+      setSearchQuery,
+    };
+  }, [searchedPosts, handleAddPost, searchQuery]);
+  const valueA = useMemo(() => {
+    return {
+      onAddPost: handleAddPost,
+    };
+  },[]);
+
   return (
-    <PostContext.Provider
-      value={{
-        posts: searchedPosts,
-        onAddPost: handleAddPost,
-        onClearPosts: handleClearPosts,
-        searchQuery,
-        setSearchQuery,
-      }}
-    >{children}</PostContext.Provider>
+    <PostContext.Provider value={value}>
+      <archiveContext.Provider value={valueA}>
+        {children}
+      </archiveContext.Provider>
+    </PostContext.Provider>
   );
 }
-function usePost(){
-    const context=useContext(PostContext)
-    return context
+function usePost() {
+  const context = useContext(PostContext);
+  return context;
+}
+function useArchive() {
+  const context = useContext(archiveContext);
+  return context;
 }
 
-export  { PostProvider ,usePost};
+
+export { PostProvider, usePost ,useArchive};

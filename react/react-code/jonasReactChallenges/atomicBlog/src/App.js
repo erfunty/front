@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, memo, useContext, useEffect, useState } from "react";
 import { faker } from "@faker-js/faker";
-import { PostProvider, usePost } from "./PostContext";
+import { PostProvider, usePost,useArchive } from "./PostContext";
 
 function createRandomPost() {
   return {
@@ -131,13 +131,13 @@ function List() {
   );
 }
 
-function Archive() {
+const Archive = memo(function Archive() {
   // Here we don't need the setter function. We're only using state to store these posts because the callback function passed into useState (which generates the posts) is only called once, on the initial render. So we use this trick as an optimization technique, because if we just used a regular variable, these posts would be re-created on every render. We could also move the posts outside the components, but I wanted to show you this trick 😉
   const [posts] = useState(() =>
     // 💥 WARNING: This might make your computer slow! Try a smaller `length` first
-    Array.from({ length: 10000 }, () => createRandomPost()),
+    Array.from({ length: 30000 }, () => createRandomPost()),
   );
-  const { onAddPost } = usePost();
+  const { onAddPost } = useArchive();
 
   const [showArchive, setShowArchive] = useState(false);
 
@@ -162,7 +162,7 @@ function Archive() {
       )}
     </aside>
   );
-}
+});
 
 function Footer() {
   return <footer>&copy; by The Atomic Blog ✌️</footer>;
