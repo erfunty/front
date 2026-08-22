@@ -1,38 +1,37 @@
-import Styled, { styled } from "styled-components";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Users from "./pages/Users";
+import Bookings from "./pages/Bookings";
+import Cabins from "./pages/Cabins";
+import Settings from "./pages/Settings";
+import Account from "./pages/Account";
+import Login from "./pages/Login";
+import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyle";
-import Button from "./ui/Button";
-import Input from "./ui/Input";
-import Heading from "./ui/Heading";
-import Row from "./ui/Row";
-
-const StyledApp = styled.div`
-  background-color: orange;
-  padding: 20px;
-`;
+import AppLayout from "./ui/AppLayout";
 function App() {
   return (
     <>
       <GlobalStyles />
-      <StyledApp>
-        <Row>
-          <Heading as="h1">fuck world</Heading>
-          <div>
-            <Heading as="h2">Check in and out </Heading>
-            <Button>Check in</Button>
-            <Button>Check out</Button>
-          </div>
-        </Row>
-        <Row>
-
-        <Heading as="h3">form</Heading>
-        <form>
-          <Input type="number" placeholder="Number of gusts" />
-          <Input type="number" placeholder="Number of gusts" />
-        </form>
-        </Row>
-      </StyledApp>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout/>}>
+          <Route index element={<Navigate replace to={"dashboard"} />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="users" element={<Users />} />
+          <Route path="bookings" element={<Bookings />} />
+          <Route path="cabins" element={<Cabins />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="account" element={<Account />} />
+          </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
 
 export default App;
+
+//cd E:\project\react\react-code\jonasReactChallenges\wild-oasis

@@ -13,6 +13,8 @@
     "eslint-config-react-app": "^7.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.7.0",
+    "react-router-dom": "^6.30.6",
     "save-dev": "^0.0.1-security",
     "styled-components": "^6.5.3",
     "vite-plugin-eslint": "^1.8.1"
